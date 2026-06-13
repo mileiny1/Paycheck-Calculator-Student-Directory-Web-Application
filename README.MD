@@ -162,10 +162,6 @@ Point your local or remote server root to the project folder and open `index.php
 
 ---
 
-## Screenshots
-
-### Home Page
-![Home Page](./screenshots/screenshot-home.png)
 
 ---
 
