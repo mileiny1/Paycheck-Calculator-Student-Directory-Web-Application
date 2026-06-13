@@ -1,6 +1,6 @@
 # Paycheck Calculator & Student Directory
 
-A full-stack web application built with **PHP 8**, **MySQL**, and **Bootstrap 5** — featuring a paycheck calculator, guestbook, student directory, and book finder. Designed to be secure, responsive, and easy to deploy on any PHP-enabled server.
+A full stack web application built with **PHP 8**, **MySQL**, and **Bootstrap 5** featuring a paycheck calculator, guestbook, student directory, and book finder. Designed to be secure, responsive, and easy to deploy on any PHP enabled server.
 
 <br />
 
@@ -169,7 +169,8 @@ Point your local or remote server root to the project folder and open `index.php
 
 **Mileiny Nolasco**
 
-- Portfolio: [mileiny.dev](#)
+- Portfolio: [mileiny.dev](https://mileiny-portfolio-valdez.vercel.app/
+)
 - GitHub: [@mileiny1](https://github.com/mileiny1)
 
 ---
