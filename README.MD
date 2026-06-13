@@ -1,110 +1,183 @@
-Paycheck Calculator & Student Directory Web Application
+# Paycheck Calculator & Student Directory
 
-A full-stack web application built with PHP, MySQL, and Bootstrap, featuring a Paycheck Calculator, Guestbook, and Student Directory. Designed to be responsive, secure, and easy to use.
+A full-stack web application built with **PHP 8**, **MySQL**, and **Bootstrap 5** — featuring a paycheck calculator, guestbook, student directory, and book finder. Designed to be secure, responsive, and easy to deploy on any PHP-enabled server.
 
-🚀 Features
-1. Paycheck Calculator
+<br />
 
-Enter hours worked and hourly rate.
+![PHP](https://img.shields.io/badge/PHP-8.0+-777BB4?style=flat-square&logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=flat-square&logo=mysql&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?style=flat-square&logo=bootstrap&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-22C55E?style=flat-square)
 
-Calculates:
+---
 
-Gross Pay
+## Table of Contents
 
-Tax (15%)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Security](#security)
+- [Screenshots](#screenshots)
+- [Developer](#developer)
+- [License](#license)
 
-Net Pay
+---
 
-Responsive layout using Bootstrap cards.
+## Features
 
-Displays results on a dedicated page.
+### Paycheck Calculator
+Calculates employee pay based on hours worked and hourly rate, automatically applying a 15% tax deduction.
 
-2. Guestbook
+| Output | Description |
+|--------|-------------|
+| Gross Pay | `hours_worked × hourly_rate` |
+| Tax (15%) | `gross_pay × 0.15` |
+| Net Pay | `gross_pay − tax` |
 
-Visitors can submit name and message.
+### Guestbook
+Visitors can leave their name and a message. Entries are stored in MySQL and displayed in reverse-chronological order. All input is protected against SQL injection via prepared statements.
 
-Messages stored in MySQL database (guestbook_app → guestbook_entries).
+### Student Directory
+Add students by first and last name and view them in a sortable table. All queries are fully parameterized.
 
-Messages displayed in reverse chronological order.
+### Book Finder
+Search and discover books through a clean, integrated browsing interface.
 
-Secure form submission with prepared statements.
+---
 
-3. Student Directory
+## Tech Stack
 
-Add students with first and last names.
+| Layer | Technology |
+|-------|------------|
+| Backend | PHP 8+ |
+| Database | MySQL / MariaDB |
+| Frontend | Bootstrap 5, HTML5, CSS3 |
+| Scripting | JavaScript (Bootstrap components) |
 
-View all students in a table.
+---
 
-Uses prepared statements to prevent SQL injection.
+## Project Structure
 
-4. About Page
+```
+project-root/
+├── index.php                  # Home page
+├── paycheckCalculator.php     # Paycheck input form
+├── paycheckResult.php         # Paycheck results display
+├── guestbook.php              # Guestbook form & message feed
+├── add_student.php            # Add a new student
+├── students.php               # View all students
+├── about.php                  # About the developer
+├── nav.php                    # Shared navigation bar
+└── config.php                 # Database connection (add to .gitignore)
+```
 
-Introduces developer Mileiny Nolasco.
+---
 
-Highlights technical skills and links to portfolio & GitHub.
+## Getting Started
 
-🗂 Project Structure
-/project-root
-│── index.php                 # Home page
-│── guestbook.php             # Guestbook form & display
-│── add_student.php           # Add new student
-│── students.php              # View all students
-│── nav.php                   # Navbar included in pages
-│── config.php                # Database connection
-│── paycheckCalculator.php    # Input form for paycheck calculation
-│── paycheckResult.php        # Displays paycheck results
-└── about.php                 # About the developer page
+### Prerequisites
 
-💻 Technologies Used
+- PHP 8.0 or higher
+- MySQL 8.0 or MariaDB
+- A local server environment ([XAMPP](https://www.apachefriends.org/) or [MAMP](https://www.mamp.info/)) or any PHP-enabled remote host
 
-PHP 8+
+### 1. Clone the Repository
 
-MySQL / MariaDB
+```bash
+git clone https://github.com/mileiny1/Paycheck-Calculator-Student-Directory-Web-Application.git
+cd Paycheck-Calculator-Student-Directory-Web-Application
+```
 
-HTML5 & CSS3
+### 2. Create the Database
 
-Bootstrap 5
+```sql
+CREATE DATABASE guestbook_app;
+USE guestbook_app;
+```
 
-JavaScript (for Bootstrap components)
+### 3. Run the Schema
 
-⚙ Installation & Setup
-
-Clone the repository:
-
-git clone : https://github.com/mileiny1/Paycheck-Calculator-Student-Directory-Web-Application.git
-
-
-Create a MySQL database named guestbook_app.
-
-Create the guestbook_entries table:
-
+```sql
 CREATE TABLE guestbook_entries (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    message TEXT,
-    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  id           INT AUTO_INCREMENT PRIMARY KEY,
+  name         VARCHAR(100)  NOT NULL,
+  message      TEXT          NOT NULL,
+  submitted_at TIMESTAMP     DEFAULT CURRENT_TIMESTAMP
 );
-
-
-Create the students table:
 
 CREATE TABLE students (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    lastname VARCHAR(100) NOT NULL
+  id       INT AUTO_INCREMENT PRIMARY KEY,
+  name     VARCHAR(100) NOT NULL,
+  lastname VARCHAR(100) NOT NULL
 );
+```
 
+### 4. Configure the Connection
 
-Update config.php with your database credentials.
+Open `config.php` and update your credentials:
 
-Deploy on a PHP-enabled server (e.g., XAMPP, MAMP, InfinityFree).
+```php
+<?php
+$host     = 'localhost';
+$dbname   = 'guestbook_app';
+$username = 'your_username';
+$password = 'your_password';
 
-Access pages:
+$pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+```
 
-paycheckCalculator.php → Paycheck Calculator
+> **Important:** Add `config.php` to `.gitignore` before pushing to a public repository.
+> ```bash
+> echo "config.php" >> .gitignore
+> ```
 
-guestbook.php → Guestbook
+### 5. Deploy
 
-add_student.php → Add Student
+Point your local or remote server root to the project folder and open `index.php` in a browser.
 
-students.php → View Students
+---
+
+## Usage
+
+| Page | URL |
+|------|-----|
+| Home | `index.php` |
+| Paycheck Calculator | `paycheckCalculator.php` |
+| Paycheck Results | `paycheckResult.php` |
+| Guestbook | `guestbook.php` |
+| Add Student | `add_student.php` |
+| Student Directory | `students.php` |
+| About | `about.php` |
+
+---
+
+## Security
+
+- All database queries use **prepared statements** to prevent SQL injection
+- User inputs are sanitized before display to prevent XSS attacks
+- Database credentials are isolated in `config.php` — never commit this file to version control
+
+---
+
+## Screenshots
+
+### Home Page
+![Home Page](./screenshots/screenshot-home.png)
+
+---
+
+## Developer
+
+**Mileiny Nolasco**
+
+- Portfolio: [mileiny.dev](#)
+- GitHub: [@mileiny1](https://github.com/mileiny1)
+
+---
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
